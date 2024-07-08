@@ -1,12 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-   <script src="Domtest.js"></script>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>CodeScript</title>
+  <title>Create Board</title>
+  <style>
+    #board {
+      margin-top: 20px;
+    }
+    .row {
+      display: flex;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #000;
+    }
+    .cell input {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border: none;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    Hello
+  <div>
+    <label for="rows">Rows:</label>
+    <input type="number" id="rows" name="rows">
+    <label for="columns">Columns:</label>
+    <input type="number" id="columns" name="columns">
+    <button onclick="createBoard()">Create Board</button>
+  </div>
+  <div id="board"></div>
+
+  <script>
+    function createBoard() {
+      const rows = parseInt(document.getElementById('rows').value);
+      const columns = parseInt(document.getElementById('columns').value);
+      
+      // Clear previous board
+      const boardContainer = document.getElementById('board');
+      boardContainer.innerHTML = '';
+
+      // Validate input
+      if (isNaN(rows) || isNaN(columns) || rows <= 0 || columns <= 0) {
+        alert('Please enter valid positive numbers for rows and columns.');
+        return;
+      }
+
+      // Create the board
+      for (let i = 0; i < rows; i++) {
+        const row = document.createElement('div');
+        row.className = 'row';
+        for (let j = 0; j < columns; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          
+          // Add input field inside the cell
+          const input = document.createElement('input');
+          input.type = 'text';
+          cell.appendChild(input);
+          
+          row.appendChild(cell);
+        }
+        boardContainer.appendChild(row);
+      }
+    }
+  </script>
 </body>
 </html>
